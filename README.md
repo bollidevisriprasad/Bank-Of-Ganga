@@ -40,18 +40,22 @@ Demo logins: customer `1234567890` / PIN `1234` · admin `admin` / `admin123`
 
 ## Deploy a public demo on Render
 
-This repository includes a Dockerfile and Render Blueprint for a free demo deployment:
+This repository includes a Dockerfile and Render Blueprint for a free demo deployment. The app uses an external MySQL-compatible database so simulated accounts and transactions survive app restarts. For a free database, create a TiDB Cloud Starter cluster (free-tier availability and limits are set by the provider).
 
 1. Sign in to [Render](https://render.com/).
 2. Select **New** → **Blueprint** and connect the `bollidevisriprasad/Bank-Of-Ganga` GitHub repository.
-3. Deploy the `render.yaml` Blueprint. Render builds the app and provides a public `https://` URL.
-4. Open that URL in Chrome.
+3. Create a MySQL-compatible TiDB Cloud Starter cluster and copy its connection endpoint, database name, username, and password from the provider dashboard. Do not commit these credentials.
+4. In the Blueprint setup, provide the three requested environment values:
+   * `DB_URL`: `jdbc:mysql://<endpoint>:4000/<database>?sslMode=VERIFY_IDENTITY&serverTimezone=UTC` (replace the placeholders with values from the provider).
+   * `DB_USER`: the database username from the provider.
+   * `DB_PASSWORD`: the database password from the provider.
+5. Deploy the Blueprint. Render builds the app and provides a public `https://` URL; open that URL in Chrome.
 
-The default H2 database is in memory, so demo account changes reset whenever the service restarts or spins down. The H2 console is disabled. This setup is not intended for persistent or production banking data.
+Render’s free web service can spin down when idle, but the external database keeps its data. The H2 console is disabled. Demo customer/admin accounts are seeded only when the database is empty. Free database limits and retention depend on the provider. This is for simulated portfolio data only, not production banking.
 
 ## Databases
 * **Default**: in-memory H2 (no setup, data resets when the app restarts).
-* **MySQL**: the MySQL profile connects to `localhost:3306/dspbank`. The configured JDBC URL creates the database if it does not exist (the MySQL user must have permission), and Hibernate `ddl-auto=update` creates or updates the entity tables at startup. You do not need to run `database/schema.sql` manually for normal startup; it documents the schema and can be used for manual setup if preferred. Both `DB_USER` and `DB_PASSWORD` must be set in the environment before starting with the MySQL profile.
+* **MySQL**: the MySQL profile connects to `localhost:3306/dspbank` by default. Set `DB_URL` to override the JDBC URL for a hosted MySQL-compatible server; set `DB_USER` and `DB_PASSWORD` for the connection. Hibernate `ddl-auto=update` creates or updates the entity tables at startup. You do not need to run `database/schema.sql` manually for normal startup; it documents the schema and can be used for manual setup if preferred.
 
 ## API (send the login token in header `X-Auth-Token`)
 | Method | Path | Who |

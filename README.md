@@ -40,18 +40,13 @@ Demo logins: customer `1234567890` / PIN `1234` · admin `admin` / `admin123`
 
 ## Deploy a public demo on Render
 
-This repository includes a Dockerfile and Render Blueprint for a free demo deployment. The app uses an external MySQL-compatible database so simulated accounts and transactions survive app restarts. For a free database, create a TiDB Cloud Starter cluster (free-tier availability and limits are set by the provider).
+This repository includes a Dockerfile and Render Blueprint for a free demo deployment using the built-in in-memory H2 database. No external database setup is required.
 
 1. Sign in to [Render](https://render.com/).
 2. Select **New** → **Blueprint** and connect the `bollidevisriprasad/Bank-Of-Ganga` GitHub repository.
-3. Create a MySQL-compatible TiDB Cloud Starter cluster and copy its connection endpoint, database name, username, and password from the provider dashboard. Do not commit these credentials.
-4. In the Blueprint setup, provide the three requested environment values:
-   * `DB_URL`: `jdbc:mysql://<endpoint>:4000/<database>?sslMode=VERIFY_IDENTITY&serverTimezone=UTC` (replace the placeholders with values from the provider).
-   * `DB_USER`: the database username from the provider.
-   * `DB_PASSWORD`: the database password from the provider.
-5. Deploy the Blueprint. Render builds the app and provides a public `https://` URL; open that URL in Chrome.
+3. Deploy the `render.yaml` Blueprint. Render builds the app and provides a public `https://` URL; open that URL in Chrome.
 
-Render’s free web service can spin down when idle, but the external database keeps its data. The H2 console is disabled. Demo customer/admin accounts are seeded only when the database is empty. Free database limits and retention depend on the provider. This is for simulated portfolio data only, not production banking.
+The app simulates money only; no real payments are made. The H2 console is disabled. Demo customer/admin accounts are seeded when the app starts, and all data resets when the free service restarts or spins down. This is for simulated portfolio data only, not production banking.
 
 ## Databases
 * **Default**: in-memory H2 (no setup, data resets when the app restarts).

@@ -34,7 +34,20 @@ Remove-Item Env:DB_USER
 Remove-Item Env:DB_PASSWORD
 ```
 
+> **Demo only:** This app is for portfolio/testing purposes, not real banking. Do not enter real personal or financial information. Demo accounts and their data are not private.
+
 Demo logins: customer `1234567890` / PIN `1234` · admin `admin` / `admin123`
+
+## Deploy a public demo on Render
+
+This repository includes a Dockerfile and Render Blueprint for a free demo deployment:
+
+1. Sign in to [Render](https://render.com/).
+2. Select **New** → **Blueprint** and connect the `bollidevisriprasad/Bank-Of-Ganga` GitHub repository.
+3. Deploy the `render.yaml` Blueprint. Render builds the app and provides a public `https://` URL.
+4. Open that URL in Chrome.
+
+The default H2 database is in memory, so demo account changes reset whenever the service restarts or spins down. The H2 console is disabled. This setup is not intended for persistent or production banking data.
 
 ## Databases
 * **Default**: in-memory H2 (no setup, data resets when the app restarts).

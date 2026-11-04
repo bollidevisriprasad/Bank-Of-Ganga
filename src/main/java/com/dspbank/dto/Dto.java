@@ -1,4 +1,5 @@
 
+
 package com.dspbank.dto;
 
 import javax.validation.constraints.*;
@@ -201,6 +202,13 @@ public final class Dto {
             this.name = name;
         }
 
+        // JavaBean getters for Jackson
+        public String getToken() { return token; }
+        public String getRole() { return role; }
+        public Long getAccountNumber() { return accountNumber; }
+        public String getName() { return name; }
+
+        // Existing accessors
         public String token() { return token; }
         public String role() { return role; }
         public Long accountNumber() { return accountNumber; }
@@ -228,6 +236,12 @@ public final class Dto {
             this.status = status;
             this.createdAt = createdAt;
         }
+
+        public Long getAccountNumber() { return accountNumber; }
+        public String getName() { return name; }
+        public BigDecimal getBalance() { return balance; }
+        public String getStatus() { return status; }
+        public LocalDateTime getCreatedAt() { return createdAt; }
 
         public Long accountNumber() { return accountNumber; }
         public String name() { return name; }
@@ -261,6 +275,13 @@ public final class Dto {
             this.date = date;
         }
 
+        public Long getId() { return id; }
+        public String getType() { return type; }
+        public BigDecimal getAmount() { return amount; }
+        public BigDecimal getBalanceAfter() { return balanceAfter; }
+        public Long getCounterparty() { return counterparty; }
+        public LocalDateTime getDate() { return date; }
+
         public Long id() { return id; }
         public String type() { return type; }
         public BigDecimal amount() { return amount; }
@@ -287,6 +308,11 @@ public final class Dto {
             this.totalBalance = totalBalance;
             this.totalTransactions = totalTransactions;
         }
+
+        public long getTotalCustomers() { return totalCustomers; }
+        public long getBlockedAccounts() { return blockedAccounts; }
+        public BigDecimal getTotalBalance() { return totalBalance; }
+        public long getTotalTransactions() { return totalTransactions; }
 
         public long totalCustomers() { return totalCustomers; }
         public long blockedAccounts() { return blockedAccounts; }

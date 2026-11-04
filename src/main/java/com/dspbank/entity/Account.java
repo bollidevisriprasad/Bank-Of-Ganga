@@ -1,6 +1,6 @@
 package com.dspbank.entity;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import lombok.Getter;

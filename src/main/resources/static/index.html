@@ -3,163 +3,1367 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>DSP Bank</title>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏦</text></svg>">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<title>DSP Bank | Digital Banking</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
 <style>
-:root{--ink:#14172b;--muted:#5d6280;--paper:#f4f5fa;--card:#fff;--line:#e2e4ef;--blue:#1e2a78;--blue2:#2c3b9e;--saffron:#f2a93b;--green:#1a7f55;--red:#b8353b;
---display:'Bricolage Grotesque',Georgia,serif;--body:'Instrument Sans',system-ui,sans-serif}
-@media(prefers-color-scheme:dark){:root{--ink:#eceefb;--muted:#9aa0c4;--paper:#0f1226;--card:#171b38;--line:#2a2f57;--green:#4cc68f;--red:#ff7b80}}
-*{box-sizing:border-box}html,body{margin:0}
-body{font:16px/1.5 var(--body);color:var(--ink);background:var(--paper);min-height:100vh}
-h1,h2,h3{font-family:var(--display);margin:0;line-height:1.1;letter-spacing:-.01em}
+:root{
+ --ink:#172033;
+ --muted:#778198;
+ --paper:#f4f6fb;
+ --card:#ffffff;
+ --line:#e6eaf2;
+ --blue:#1e2a78;
+ --blue2:#3445a5;
+ --saffron:#f2ad43;
+ --green:#16845b;
+ --red:#c43e4b;
+ --display:'Bricolage Grotesque',Georgia,serif;
+ --body:'Inter',Arial,sans-serif;
+}
+
+@media(prefers-color-scheme:dark){
+ :root{
+  --ink:#edf0ff;
+  --muted:#a3acc7;
+  --paper:#101426;
+  --card:#1a2038;
+  --line:#303954;
+  --green:#56d5a0;
+  --red:#ff858d;
+ }
+}
+
+*{box-sizing:border-box}
+
+html,body{margin:0;min-height:100%}
+
+body{
+ font:15px/1.55 var(--body);
+ color:var(--ink);
+ background:var(--paper);
+}
+
+h1,h2,h3{
+ font-family:var(--display);
+ margin:0;
+ line-height:1.2;
+}
+
 button,input{font:inherit;color:inherit}
-:focus-visible{outline:3px solid var(--saffron);outline-offset:2px}
-.btn{border:0;border-radius:10px;padding:.65rem 1.1rem;font-weight:600;cursor:pointer;background:var(--blue);color:#fff}
-.btn:hover{background:var(--blue2)}.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
-.btn.ghost:hover{background:var(--line)}.btn.sm{padding:.3rem .65rem;font-size:.85rem;border-radius:8px}.btn.danger{background:var(--red);color:#fff}
-.btn.gold{background:var(--saffron);color:#1b1500}
-input{width:100%;padding:.7rem .85rem;border-radius:10px;border:1px solid var(--line);background:var(--card)}
-label{display:block;font-weight:500;font-size:.9rem;margin:.9rem 0 .3rem}
-.muted{color:var(--muted)}.mono{font-variant-numeric:tabular-nums}
-/* auth */
-.auth{min-height:100vh;display:grid;grid-template-columns:1.1fr 1fr}
-.brand{background:var(--blue);color:#fff;padding:3rem;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
-.brand h1{font-size:clamp(2.4rem,5vw,4rem);max-width:12ch}
-.brand p{max-width:34ch;color:#cdd2f5}
-.brand .logo{font-family:var(--display);font-weight:700;font-size:1.3rem}
-.cardnum{margin-top:2rem;max-width:360px;padding:1.2rem 1.4rem;border-radius:16px;background:linear-gradient(135deg,#2c3b9e,#161f5c);border:1px solid #ffffff22;transform:rotate(-3deg)}
-.cardnum b{display:block;font:500 1.25rem var(--display);letter-spacing:.12em;margin:.8rem 0 .2rem}
-.cardnum i{display:inline-block;width:38px;height:28px;border-radius:6px;background:var(--saffron)}
-.panel{padding:3rem 2rem;display:flex;align-items:center;justify-content:center}
-.form{width:100%;max-width:380px}
-.tabs{display:flex;gap:.4rem;background:var(--line);padding:.3rem;border-radius:12px;margin-bottom:1.5rem}
-.tabs button{flex:1;border:0;background:none;padding:.5rem;border-radius:9px;cursor:pointer;font-weight:500;color:var(--muted)}
-.tabs button[aria-selected=true]{background:var(--card);color:var(--ink);box-shadow:0 1px 3px #0002}
-.form .btn{width:100%;margin-top:1.3rem}
+
+button{cursor:pointer}
+
+:focus-visible{
+ outline:3px solid var(--saffron);
+ outline-offset:3px;
+}
+
+.btn{
+ border:0;
+ border-radius:10px;
+ padding:.7rem 1.1rem;
+ font-weight:600;
+ background:var(--blue);
+ color:#fff;
+ transition:.2s;
+}
+
+.btn:hover{background:var(--blue2);transform:translateY(-1px)}
+
+.btn.ghost{
+ background:transparent;
+ color:var(--ink);
+ border:1px solid var(--line);
+}
+
+.btn.ghost:hover{background:var(--line)}
+
+.btn.gold{background:var(--saffron);color:#241a05}
+.btn.danger{background:var(--red);color:white}
+.btn.sm{padding:.35rem .7rem;font-size:.85rem}
+
+input{
+ width:100%;
+ padding:.8rem .9rem;
+ border-radius:10px;
+ border:1px solid var(--line);
+ background:var(--card);
+}
+
+label{
+ display:block;
+ font-size:.9rem;
+ font-weight:600;
+ margin:.9rem 0 .35rem;
+}
+
+.muted{color:var(--muted)}
+.mono{font-variant-numeric:tabular-nums}
+
+/* LOGIN */
+
+.auth{
+ min-height:100vh;
+ display:grid;
+ grid-template-columns:1.1fr 1fr;
+}
+
+.brand{
+ background:linear-gradient(145deg,#17235f,#3445a5);
+ color:white;
+ padding:clamp(2rem,5vw,4rem);
+ display:flex;
+ flex-direction:column;
+ justify-content:space-between;
+}
+
+.brand h1{
+ font-size:clamp(2.5rem,5vw,4.5rem);
+ max-width:11ch;
+ margin:2rem 0 1rem;
+}
+
+.brand p{color:#d4dafb;max-width:35ch}
+
+.logo{
+ font:700 1.35rem var(--display);
+ letter-spacing:-.03em;
+}
+
+.brand-card{
+ margin-top:2rem;
+ max-width:370px;
+ padding:1.5rem;
+ border-radius:18px;
+ background:linear-gradient(135deg,#4255c4,#17235f);
+ border:1px solid #ffffff30;
+ box-shadow:0 20px 45px #0002;
+}
+
+.brand-card strong{
+ display:block;
+ font:600 1.5rem var(--display);
+ letter-spacing:.12em;
+ margin:1rem 0 .3rem;
+}
+
+.chip{
+ display:inline-block;
+ width:42px;
+ height:30px;
+ border-radius:7px;
+ background:var(--saffron);
+}
+
+.panel{
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ padding:2rem;
+}
+
+.form{width:100%;max-width:390px}
+
+.tabs{
+ display:flex;
+ gap:.4rem;
+ padding:.35rem;
+ background:var(--line);
+ border-radius:12px;
+ margin-bottom:1.5rem;
+}
+
+.tabs button{
+ flex:1;
+ border:0;
+ background:transparent;
+ padding:.65rem .3rem;
+ border-radius:9px;
+ color:var(--muted);
+ font-weight:600;
+}
+
+.tabs button[aria-selected=true]{
+ background:var(--card);
+ color:var(--ink);
+ box-shadow:0 1px 4px #0002;
+}
+
+.form>.btn{width:100%;margin-top:1.3rem}
 .hint{font-size:.85rem;color:var(--muted);margin-top:1rem}
-/* app */
-.top{display:flex;justify-content:space-between;align-items:center;padding:1rem clamp(1rem,4vw,2.5rem);border-bottom:1px solid var(--line);background:var(--card)}
-.top .logo{font:700 1.2rem var(--display)}
-main{max-width:1000px;margin:0 auto;padding:2rem clamp(1rem,4vw,2.5rem) 4rem}
-.hero{background:var(--blue);color:#fff;border-radius:20px;padding:2rem;display:flex;flex-wrap:wrap;gap:1.5rem;justify-content:space-between;align-items:flex-end}
-.hero .bal{font:700 clamp(2.4rem,7vw,4rem) var(--display);letter-spacing:-.02em}
-.hero small{color:#c3c9f3;display:block}
-.pill{display:inline-block;padding:.1rem .6rem;border-radius:99px;font-size:.8rem;font-weight:600;background:#ffffff26}
-.pill.ok{background:#1a7f5522;color:var(--green)}.pill.bad{background:#b8353b22;color:var(--red)}
-.actions{display:flex;flex-wrap:wrap;gap:.6rem;margin:1.2rem 0 2rem}
-h2{font-size:1.4rem;margin:2rem 0 .8rem}
-.table{width:100%;border-collapse:collapse;background:var(--card);border-radius:14px;overflow:hidden;border:1px solid var(--line)}
-.table th{text-align:left;font-weight:600;font-size:.85rem;color:var(--muted);padding:.7rem 1rem;border-bottom:1px solid var(--line)}
-.table td{padding:.75rem 1rem;border-bottom:1px solid var(--line)}.table tr:last-child td{border:0}
-.wrap{overflow-x:auto}.in{color:var(--green);font-weight:600}.out{color:var(--red);font-weight:600}
-.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:1rem}
-.stat{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:1.1rem 1.2rem}
-.stat b{display:block;font:700 1.9rem var(--display)}
-.row-actions{display:flex;gap:.3rem;flex-wrap:wrap}
-.empty{padding:2rem;text-align:center;color:var(--muted);background:var(--card);border:1px dashed var(--line);border-radius:14px}
-dialog{border:0;border-radius:18px;padding:1.6rem;width:min(92vw,400px);background:var(--card);color:var(--ink);box-shadow:0 20px 60px #0006}
+
+/* COMMON DASHBOARD */
+
+.top{
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ padding:1rem clamp(1rem,4vw,3rem);
+ background:var(--card);
+ border-bottom:1px solid var(--line);
+}
+
+.top-right{
+ display:flex;
+ align-items:center;
+ gap:1rem;
+}
+
+main{
+ max-width:1120px;
+ margin:auto;
+ padding:2rem clamp(1rem,4vw,2.5rem) 4rem;
+}
+
+.welcome{
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ gap:1rem;
+ margin-bottom:1.5rem;
+}
+
+.welcome h1{font-size:2rem}
+.welcome p{margin:.4rem 0 0;color:var(--muted)}
+
+.profile-chip{
+ padding:.55rem .9rem;
+ border-radius:30px;
+ background:var(--card);
+ border:1px solid var(--line);
+ font-weight:600;
+}
+
+/* BALANCE CARD */
+
+.hero{
+ position:relative;
+ overflow:hidden;
+ display:flex;
+ flex-wrap:wrap;
+ align-items:flex-end;
+ justify-content:space-between;
+ gap:2rem;
+ padding:2.2rem;
+ border-radius:22px;
+ background:linear-gradient(125deg,#17235f,#3448ad);
+ color:white;
+ box-shadow:0 15px 35px #17235f25;
+}
+
+.hero:after{
+ content:"";
+ position:absolute;
+ width:260px;
+ height:260px;
+ border:1px solid #ffffff25;
+ border-radius:50%;
+ right:12%;
+ top:-150px;
+ pointer-events:none;
+}
+
+.hero small{
+ display:block;
+ color:#c8d0ff;
+ font-size:.9rem;
+}
+
+.hero .bal{
+ font:700 clamp(2.3rem,6vw,3.8rem) var(--display);
+ margin:.5rem 0;
+ letter-spacing:-.03em;
+}
+
+.account-meta{
+ display:flex;
+ flex-direction:column;
+ gap:.4rem;
+ text-align:right;
+ position:relative;
+ z-index:1;
+}
+
+.account-meta strong{font-size:1.15rem}
+
+.status{
+ display:inline-block;
+ width:max-content;
+ margin-top:.4rem;
+ padding:.25rem .7rem;
+ border-radius:30px;
+ font-size:.8rem;
+ font-weight:700;
+ background:#ffffff20;
+}
+
+/* ACTIONS */
+
+.section-title{
+ font:600 1.25rem var(--display);
+ margin:2rem 0 .9rem;
+}
+
+.actions{
+ display:grid;
+ grid-template-columns:repeat(4,1fr);
+ gap:1rem;
+ margin-top:1.5rem;
+}
+
+.action-card{
+ min-height:125px;
+ padding:1.2rem;
+ display:flex;
+ flex-direction:column;
+ justify-content:center;
+ align-items:center;
+ gap:.65rem;
+ border-radius:16px;
+ border:1px solid var(--line);
+ background:var(--card);
+ color:var(--ink);
+ font-weight:700;
+ transition:.2s;
+}
+
+.action-card:hover{
+ transform:translateY(-3px);
+ border-color:var(--blue2);
+ box-shadow:0 10px 25px #17235f12;
+}
+
+.action-icon{
+ width:42px;
+ height:42px;
+ display:grid;
+ place-items:center;
+ border-radius:13px;
+ font-size:1.35rem;
+ background:#edf0ff;
+ color:#26378f;
+}
+
+.action-card.transfer .action-icon{
+ background:#fff2dc;
+ color:#9b640c;
+}
+
+.action-card.pin .action-icon{
+ background:#e4f7ef;
+ color:#137a51;
+}
+
+/* DASHBOARD INFO */
+
+.customer-grid{
+ display:grid;
+ grid-template-columns:1.5fr 1fr;
+ gap:1rem;
+ margin:1.5rem 0;
+}
+
+.dash-card{
+ background:var(--card);
+ border:1px solid var(--line);
+ border-radius:16px;
+ padding:1.35rem;
+}
+
+.dash-card h3{
+ font-size:1.05rem;
+ margin-bottom:.8rem;
+}
+
+.info-row{
+ display:flex;
+ justify-content:space-between;
+ gap:1rem;
+ padding:.65rem 0;
+ border-bottom:1px solid var(--line);
+}
+
+.info-row:last-child{border:0}
+
+.security-icon{
+ font-size:1.8rem;
+ margin-bottom:.5rem;
+}
+
+.security-card p{
+ color:var(--muted);
+ font-size:.9rem;
+ margin:.4rem 0 0;
+}
+
+/* TRANSACTIONS */
+
+.transaction-heading{
+ display:flex;
+ align-items:center;
+ justify-content:space-between;
+ gap:1rem;
+}
+
+.transaction-heading h2{margin:2rem 0 .9rem}
+
+.table{
+ width:100%;
+ border-collapse:collapse;
+ background:var(--card);
+ border-radius:14px;
+ overflow:hidden;
+ border:1px solid var(--line);
+}
+
+.table th{
+ text-align:left;
+ font-size:.82rem;
+ font-weight:700;
+ color:var(--muted);
+ padding:.9rem 1rem;
+ border-bottom:1px solid var(--line);
+ white-space:nowrap;
+}
+
+.table td{
+ padding:.9rem 1rem;
+ border-bottom:1px solid var(--line);
+}
+
+.table tr:last-child td{border:0}
+
+.wrap{overflow-x:auto}
+
+.in{color:var(--green);font-weight:700}
+.out{color:var(--red);font-weight:700}
+
+.empty{
+ padding:2.5rem;
+ text-align:center;
+ color:var(--muted);
+ background:var(--card);
+ border:1px dashed var(--line);
+ border-radius:14px;
+}
+
+/* ADMIN */
+
+.stats{
+ display:grid;
+ grid-template-columns:repeat(auto-fit,minmax(190px,1fr));
+ gap:1rem;
+}
+
+.stat{
+ background:var(--card);
+ border:1px solid var(--line);
+ border-radius:14px;
+ padding:1.2rem;
+}
+
+.stat b{
+ display:block;
+ font:700 1.9rem var(--display);
+ margin-top:.3rem;
+}
+
+.pill{
+ display:inline-block;
+ padding:.15rem .65rem;
+ border-radius:30px;
+ font-size:.8rem;
+ font-weight:700;
+}
+
+.pill.ok{background:#16845b20;color:var(--green)}
+.pill.bad{background:#c43e4b20;color:var(--red)}
+
+.row-actions{display:flex;gap:.35rem;flex-wrap:wrap}
+
+/* MODALS AND TOASTS */
+
+dialog{
+ border:0;
+ border-radius:18px;
+ padding:1.6rem;
+ width:min(92vw,420px);
+ background:var(--card);
+ color:var(--ink);
+ box-shadow:0 20px 60px #0006;
+}
+
 dialog::backdrop{background:#0b0e2299}
-dialog .btns{display:flex;gap:.6rem;margin-top:1.3rem}dialog .btns .btn{flex:1;margin:0;width:auto}
-#toast{position:fixed;left:50%;bottom:1.5rem;transform:translateX(-50%);padding:.7rem 1.2rem;border-radius:12px;background:var(--ink);color:var(--paper);font-weight:500;opacity:0;pointer-events:none;transition:opacity .2s;max-width:90vw;z-index:9}
-#toast.show{opacity:1}#toast.err{background:var(--red);color:#fff}
-@media(max-width:800px){.auth{grid-template-columns:1fr}.brand{padding:2rem}.cardnum{display:none}.panel{padding:2rem 1.2rem}}
-@media(prefers-reduced-motion:reduce){*{transition:none!important}}
+
+dialog .btns{
+ display:flex;
+ gap:.6rem;
+ margin-top:1.3rem;
+}
+
+dialog .btns .btn{flex:1;margin:0}
+
+#toast{
+ position:fixed;
+ left:50%;
+ bottom:1.5rem;
+ transform:translateX(-50%);
+ padding:.8rem 1.3rem;
+ border-radius:12px;
+ background:var(--ink);
+ color:var(--paper);
+ font-weight:600;
+ opacity:0;
+ pointer-events:none;
+ transition:opacity .2s;
+ max-width:90vw;
+ z-index:9;
+}
+
+#toast.show{opacity:1}
+#toast.err{background:var(--red);color:white}
+
+.footer{
+ text-align:center;
+ padding:1.5rem;
+ color:var(--muted);
+ font-size:.8rem;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:800px){
+ .auth{grid-template-columns:1fr}
+ .brand{padding:2rem}
+ .brand-card{display:none}
+ .brand h1{font-size:2.6rem;margin:1.5rem 0 .5rem}
+ .customer-grid{grid-template-columns:1fr}
+}
+
+@media(max-width:600px){
+ .actions{grid-template-columns:repeat(2,1fr)}
+ .welcome{align-items:flex-start;flex-direction:column}
+ .hero{padding:1.5rem}
+ .account-meta{text-align:left}
+ .top{padding:1rem}
+ .top-right{gap:.5rem}
+ .profile-chip{display:none}
+ main{padding-top:1.4rem}
+ .table th,.table td{padding:.7rem;font-size:.85rem}
+}
+
+@media(prefers-reduced-motion:reduce){
+ *{transition:none!important}
+}
 </style>
 </head>
+
 <body>
-<div id="app"></div><div id="toast" role="status" aria-live="polite"></div><dialog id="dlg"></dialog>
+
+<div id="app"></div>
+<div id="toast" role="status" aria-live="polite"></div>
+<dialog id="dlg"></dialog>
+
 <script>
 const $=s=>document.querySelector(s);
-const inr=new Intl.NumberFormat('en-IN',{style:'currency',currency:'INR'});
-const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const when=d=>new Date(d).toLocaleString('en-IN',{day:'2-digit',month:'short',hour:'2-digit',minute:'2-digit'});
-const TYPES={DEPOSIT:'Deposit',WITHDRAW:'Withdrawal',TRANSFER_OUT:'Transfer sent',TRANSFER_IN:'Transfer received'};
+
+const inr=new Intl.NumberFormat('en-IN',{
+ style:'currency',
+ currency:'INR'
+});
+
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({
+ '&':'&amp;',
+ '<':'&lt;',
+ '>':'&gt;',
+ '"':'&quot;',
+ "'":'&#39;'
+}[c]));
+
+const when=d=>new Date(d).toLocaleString('en-IN',{
+ day:'2-digit',
+ month:'short',
+ year:'numeric',
+ hour:'2-digit',
+ minute:'2-digit'
+});
+
+const TYPES={
+ DEPOSIT:'Deposit',
+ WITHDRAW:'Withdrawal',
+ TRANSFER_OUT:'Transfer sent',
+ TRANSFER_IN:'Transfer received'
+};
+
 let session=JSON.parse(sessionStorage.getItem('dsp')||'null');
 
 async function api(path,method='GET',body){
-  const res=await fetch('/api'+path,{method,headers:{'Content-Type':'application/json',...(session?{'X-Auth-Token':session.token}:{})},body:body?JSON.stringify(body):undefined});
-  const data=await res.json().catch(()=>({}));
-  if(res.status===401&&session){logout(true)}
-  if(!res.ok)throw new Error(data.error||'Something went wrong.');
-  return data;
-}
-function toast(msg,err){const t=$('#toast');t.textContent=msg;t.className='show'+(err?' err':'');clearTimeout(toast.t);toast.t=setTimeout(()=>t.className='',3200)}
-async function run(fn){try{return await fn()}catch(e){toast(e.message,true)}}
+ const res=await fetch('/api'+path,{
+  method,
+  headers:{
+   'Content-Type':'application/json',
+   ...(session?{'X-Auth-Token':session.token}:{})
+  },
+  body:body?JSON.stringify(body):undefined
+ });
 
-/* modal form: ask('Title',[{name,label,type,ph}],'Button') -> values | null */
-function ask(title,fields,ok,danger){return new Promise(res=>{
+ const data=await res.json().catch(()=>({}));
+
+ if(res.status===401&&session){
+  logout(true);
+ }
+
+ if(!res.ok){
+  throw new Error(data.error||'Something went wrong.');
+ }
+
+ return data;
+}
+
+function toast(msg,err){
+ const t=$('#toast');
+ t.textContent=msg;
+ t.className='show'+(err?' err':'');
+ clearTimeout(toast.t);
+ toast.t=setTimeout(()=>t.className='',3200);
+}
+
+async function run(fn){
+ try{
+  return await fn();
+ }catch(e){
+  toast(e.message,true);
+ }
+}
+
+/* MODAL */
+
+function ask(title,fields,ok,danger){
+ return new Promise(res=>{
   const d=$('#dlg');
-  d.innerHTML=`<form method="dialog"><h3>${esc(title)}</h3>${fields.map(f=>`<label for="f_${f.name}">${esc(f.label)}</label><input id="f_${f.name}" name="${f.name}" type="${f.type||'text'}" placeholder="${esc(f.ph||'')}" value="${esc(f.value||'')}" ${f.req===false?'':'required'} ${f.type==='number'?'step="0.01" min="0"':''} ${f.pin?'inputmode="numeric" maxlength="4" pattern="\\d{4}" autocomplete="off"':''}>`).join('')}
-  <div class="btns"><button type="button" class="btn ghost" id="x">Cancel</button><button class="btn ${danger?'danger':''}">${esc(ok)}</button></div></form>`;
+
+  d.innerHTML=`
+   <form method="dialog">
+    <h3>${esc(title)}</h3>
+
+    ${fields.map(f=>`
+     <label for="f_${f.name}">${esc(f.label)}</label>
+     <input
+      id="f_${f.name}"
+      name="${f.name}"
+      type="${f.type||'text'}"
+      placeholder="${esc(f.ph||'')}"
+      value="${esc(f.value||'')}"
+      ${f.req===false?'':'required'}
+      ${f.type==='number'?'step="0.01" min="0"':''}
+      ${f.pin?'inputmode="numeric" maxlength="4" pattern="\\d{4}" autocomplete="off"':''}
+     >
+    `).join('')}
+
+    <div class="btns">
+     <button type="button" class="btn ghost" id="x">Cancel</button>
+     <button class="btn ${danger?'danger':''}">${esc(ok)}</button>
+    </div>
+   </form>
+  `;
+
   let out=null;
-  d.querySelector('form').onsubmit=e=>{out=Object.fromEntries(new FormData(e.target))};
+
+  d.querySelector('form').onsubmit=e=>{
+   out=Object.fromEntries(new FormData(e.target));
+  };
+
   d.querySelector('#x').onclick=()=>d.close();
-  d.onclose=()=>res(out);d.showModal();
-});}
+  d.onclose=()=>res(out);
+  d.showModal();
+ });
+}
+
 const confirmBox=(t,ok)=>ask(t,[],ok,true);
 
-function logout(silent){if(!silent)api('/auth/logout','POST').catch(()=>{});session=null;sessionStorage.removeItem('dsp');route()}
-function setSession(s){session=s;sessionStorage.setItem('dsp',JSON.stringify(s));route()}
+/* AUTHENTICATION */
 
-/* ---------- login / register ---------- */
+function logout(silent){
+ if(!silent){
+  api('/auth/logout','POST').catch(()=>{});
+ }
+
+ session=null;
+ sessionStorage.removeItem('dsp');
+ route();
+}
+
+function setSession(s){
+ session=s;
+ sessionStorage.setItem('dsp',JSON.stringify(s));
+ route();
+}
+
 function authView(tab='customer'){
-  const forms={
-    customer:`<label>Account number</label><input name="accountNumber" inputmode="numeric" required autofocus><label>PIN</label><input name="pin" type="password" inputmode="numeric" maxlength="4" required><button class="btn">Log in</button><p class="hint">Demo account: 1234567890, PIN 1234.</p>`,
-    open:`<label>Full name</label><input name="name" required autofocus><label>Choose a 4-digit PIN</label><input name="pin" type="password" inputmode="numeric" maxlength="4" pattern="\\d{4}" required><label>Opening deposit (₹)</label><input name="initialDeposit" type="number" min="0" step="0.01" value="1000" required><button class="btn gold">Open account</button>`,
-    admin:`<label>Username</label><input name="username" required autofocus><label>Password</label><input name="password" type="password" required><button class="btn">Admin log in</button><p class="hint">Demo admin: admin / admin123.</p>`};
-  $('#app').innerHTML=`<div class="auth"><section class="brand"><div class="logo">DSP Bank</div><div><h1>Your money, always in view.</h1><p>Check balances, move money and review every transaction in one place.</p>
-  <div class="cardnum"><i></i><b>1234 5678 90</b><span style="color:#c3c9f3">Ravi · demo account</span></div></div><span class="muted" style="color:#9aa3e6">Built with Spring Boot and REST APIs</span></section>
-  <section class="panel"><form class="form" id="af"><div class="tabs" role="tablist">${[['customer','Log in'],['open','Open account'],['admin','Admin']].map(([k,l])=>`<button type="button" role="tab" aria-selected="${k===tab}" data-t="${k}">${l}</button>`).join('')}</div>${forms[tab]}</form></section></div>`;
-  document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>authView(b.dataset.t));
-  $('#af').onsubmit=e=>{e.preventDefault();const v=Object.fromEntries(new FormData(e.target));run(async()=>{
-    if(tab==='customer')setSession(await api('/auth/login','POST',{accountNumber:Number(v.accountNumber),pin:v.pin}));
-    else if(tab==='admin')setSession(await api('/auth/admin/login','POST',v));
-    else{const a=await api('/auth/register','POST',{name:v.name,pin:v.pin,initialDeposit:Number(v.initialDeposit)});
-      await ask('Account created',[{name:'n',label:'Your account number (save it)',value:a.accountNumber}],'Continue to log in');authView('customer')}})};
+
+ const forms={
+
+  customer:`
+   <label>Account number</label>
+   <input name="accountNumber" inputmode="numeric" required autofocus>
+
+   <label>PIN</label>
+   <input name="pin" type="password" inputmode="numeric" maxlength="4" required>
+
+   <button class="btn">Log in securely</button>
+   <p class="hint">Demo account: 1234567890, PIN 1234.</p>
+  `,
+
+  open:`
+   <label>Full name</label>
+   <input name="name" required autofocus>
+
+   <label>Choose a 4-digit PIN</label>
+   <input name="pin" type="password" inputmode="numeric" maxlength="4" pattern="\\d{4}" required>
+
+   <label>Opening deposit (₹)</label>
+   <input name="initialDeposit" type="number" min="0" step="0.01" value="1000" required>
+
+   <button class="btn gold">Open account</button>
+  `,
+
+  admin:`
+   <label>Username</label>
+   <input name="username" required autofocus>
+
+   <label>Password</label>
+   <input name="password" type="password" required>
+
+   <button class="btn">Admin log in</button>
+   <p class="hint">Demo admin: admin / admin123.</p>
+  `
+ };
+
+ $('#app').innerHTML=`
+  <div class="auth">
+
+   <section class="brand">
+    <div class="logo">DSP BANK</div>
+
+    <div>
+     <h1>Banking made simple.</h1>
+     <p>
+      Your money, your control. Manage your account,
+      transfer funds and track every transaction.
+     </p>
+
+     <div class="brand-card">
+      <span class="chip"></span>
+      <strong>1234 5678 90</strong>
+      <span style="color:#d4dafb">DSP Bank · Digital Banking</span>
+     </div>
+    </div>
+
+    <span style="color:#c4cdfb;font-size:.85rem">
+     Powered by Spring Boot and Java
+    </span>
+   </section>
+
+   <section class="panel">
+    <form class="form" id="af">
+
+     <h2 style="margin-bottom:1rem">Welcome back</h2>
+     <p class="muted" style="margin-bottom:1.5rem">
+      Access your DSP Bank account.
+     </p>
+
+     <div class="tabs" role="tablist">
+      ${[['customer','Log in'],['open','Open account'],['admin','Admin']].map(([k,l])=>`
+       <button type="button"
+        role="tab"
+        aria-selected="${k===tab}"
+        data-t="${k}">
+        ${l}
+       </button>
+      `).join('')}
+     </div>
+
+     ${forms[tab]}
+
+    </form>
+   </section>
+
+  </div>
+ `;
+
+ document.querySelectorAll('.tabs button').forEach(b=>{
+  b.onclick=()=>authView(b.dataset.t);
+ });
+
+ $('#af').onsubmit=e=>{
+  e.preventDefault();
+
+  const v=Object.fromEntries(new FormData(e.target));
+
+  run(async()=>{
+
+   if(tab==='customer'){
+    setSession(await api('/auth/login','POST',{
+     accountNumber:Number(v.accountNumber),
+     pin:v.pin
+    }));
+   }
+
+   else if(tab==='admin'){
+    setSession(await api('/auth/admin/login','POST',v));
+   }
+
+   else{
+    const a=await api('/auth/register','POST',{
+     name:v.name,
+     pin:v.pin,
+     initialDeposit:Number(v.initialDeposit)
+    });
+
+    await ask('Account created',[{
+     name:'n',
+     label:'Your account number (save it)',
+     value:a.accountNumber
+    }],'Continue to log in');
+
+    authView('customer');
+   }
+
+  });
+ };
 }
 
-/* ---------- customer ---------- */
+/* CUSTOMER DASHBOARD */
+
 async function customerView(){
-  const [me,txs]=await Promise.all([api('/account/me'),api('/account/transactions?limit=50')]);
-  $('#app').innerHTML=`<header class="top"><span class="logo">DSP Bank</span><span><span class="muted">${esc(me.name)}</span> <button class="btn ghost sm" id="lo">Log out</button></span></header>
-  <main><section class="hero"><div><small>Available balance</small><div class="bal mono">${inr.format(me.balance)}</div></div><div style="text-align:right"><small>Account number</small><b class="mono">${me.accountNumber}</b></div></section>
-  <div class="actions"><button class="btn" data-a="deposit">Deposit</button><button class="btn" data-a="withdraw">Withdraw</button><button class="btn gold" data-a="transfer">Transfer</button><button class="btn ghost" data-a="pin">Change PIN</button></div>
-  <h2>Transactions</h2>${txs.length?`<div class="wrap"><table class="table"><tr><th>Date</th><th>Type</th><th>Amount</th><th>Balance after</th></tr>${txs.map(t=>{const inn=t.type==='DEPOSIT'||t.type==='TRANSFER_IN';return`<tr><td>${when(t.date)}</td><td>${TYPES[t.type]||t.type}${t.counterparty?` <span class="muted">· ${t.counterparty}</span>`:''}</td><td class="mono ${inn?'in':'out'}">${inn?'+':'−'}${inr.format(t.amount)}</td><td class="mono">${inr.format(t.balanceAfter)}</td></tr>`}).join('')}</table></div>`:`<div class="empty">No transactions yet. Make a deposit to get started.</div>`}</main>`;
-  $('#lo').onclick=()=>logout();
-  const acts={
-    deposit:()=>ask('Deposit money',[{name:'amount',label:'Amount (₹)',type:'number'}],'Deposit').then(v=>v&&api('/account/deposit','POST',{amount:Number(v.amount)}).then(()=>'Deposited')),
-    withdraw:()=>ask('Withdraw money',[{name:'amount',label:'Amount (₹)',type:'number'}],'Withdraw').then(v=>v&&api('/account/withdraw','POST',{amount:Number(v.amount)}).then(()=>'Withdrawn')),
-    transfer:()=>ask('Transfer money',[{name:'to',label:'Receiver account number'},{name:'amount',label:'Amount (₹)',type:'number'}],'Send').then(v=>v&&api('/account/transfer','POST',{toAccount:Number(v.to),amount:Number(v.amount)}).then(()=>'Transfer sent')),
-    pin:()=>ask('Change PIN',[{name:'o',label:'Current PIN',type:'password',pin:1},{name:'n',label:'New 4-digit PIN',type:'password',pin:1}],'Change PIN').then(v=>v&&api('/account/pin','PUT',{oldPin:v.o,newPin:v.n}).then(()=>'PIN changed'))};
-  document.querySelectorAll('[data-a]').forEach(b=>b.onclick=()=>run(async()=>{const m=await acts[b.dataset.a]();if(m){toast(m);customerView()}}));
+
+ const [me,txs]=await Promise.all([
+  api('/account/me'),
+  api('/account/transactions?limit=50')
+ ]);
+
+ const incoming=txs.filter(t=>
+  t.type==='DEPOSIT'||t.type==='TRANSFER_IN'
+ ).length;
+
+ const outgoing=txs.filter(t=>
+  t.type==='WITHDRAW'||t.type==='TRANSFER_OUT'
+ ).length;
+
+ $('#app').innerHTML=`
+
+  <header class="top">
+
+   <span class="logo">DSP BANK</span>
+
+   <div class="top-right">
+    <span class="profile-chip">${esc(me.name)}</span>
+    <button class="btn ghost sm" id="lo">Log out</button>
+   </div>
+
+  </header>
+
+  <main class="customer-main">
+
+   <section class="welcome">
+    <div>
+     <h1>Welcome, ${esc(me.name)}!</h1>
+     <p>Here's your financial overview.</p>
+    </div>
+
+    <span class="profile-chip">Personal Banking</span>
+   </section>
+
+   <section class="hero">
+
+    <div>
+     <small>AVAILABLE BALANCE</small>
+     <div class="bal mono">${inr.format(me.balance)}</div>
+     <small>Your current account balance</small>
+    </div>
+
+    <div class="account-meta">
+     <small>ACCOUNT NUMBER</small>
+     <strong class="mono">${esc(me.accountNumber)}</strong>
+     <span class="status">
+      ● ${esc(me.status||'ACTIVE')}
+     </span>
+    </div>
+
+   </section>
+
+   <h2 class="section-title">Quick actions</h2>
+
+   <section class="actions">
+
+    <button class="action-card" data-a="deposit">
+     <span class="action-icon">＋</span>
+     <span>Deposit</span>
+    </button>
+
+    <button class="action-card" data-a="withdraw">
+     <span class="action-icon">↗</span>
+     <span>Withdraw</span>
+    </button>
+
+    <button class="action-card transfer" data-a="transfer">
+     <span class="action-icon">⇄</span>
+     <span>Transfer</span>
+    </button>
+
+    <button class="action-card pin" data-a="pin">
+     <span class="action-icon">⌑</span>
+     <span>Change PIN</span>
+    </button>
+
+   </section>
+
+   <section class="customer-grid">
+
+    <div class="dash-card">
+     <h3>Account overview</h3>
+
+     <div class="info-row">
+      <span class="muted">Account holder</span>
+      <strong>${esc(me.name)}</strong>
+     </div>
+
+     <div class="info-row">
+      <span class="muted">Account number</span>
+      <strong class="mono">${esc(me.accountNumber)}</strong>
+     </div>
+
+     <div class="info-row">
+      <span class="muted">Account status</span>
+      <strong>${esc(me.status||'ACTIVE')}</strong>
+     </div>
+
+     <div class="info-row">
+      <span class="muted">Transactions shown</span>
+      <strong>${txs.length}</strong>
+     </div>
+    </div>
+
+    <div class="dash-card security-card">
+     <div class="security-icon">🔐</div>
+     <h3>Security matters</h3>
+     <p>
+      Keep your PIN confidential. Never share your
+      account credentials or login details with anyone.
+     </p>
+     <p style="margin-top:.8rem">
+      <strong>Account activity</strong><br>
+      <span class="muted">
+       ${incoming} incoming · ${outgoing} outgoing transactions
+      </span>
+     </p>
+    </div>
+
+   </section>
+
+   <div class="transaction-heading">
+    <h2>Recent transactions</h2>
+    <span class="muted">${txs.length} records</span>
+   </div>
+
+   ${txs.length?`
+
+    <div class="wrap">
+     <table class="table">
+
+      <thead>
+       <tr>
+        <th>Date</th>
+        <th>Transaction</th>
+        <th>Amount</th>
+        <th>Balance after</th>
+       </tr>
+      </thead>
+
+      <tbody>
+       ${txs.map(t=>{
+
+        const inn=
+         t.type==='DEPOSIT'||
+         t.type==='TRANSFER_IN';
+
+        return `
+         <tr>
+
+          <td>${when(t.date)}</td>
+
+          <td>
+           <strong>${TYPES[t.type]||esc(t.type)}</strong>
+           ${t.counterparty?`
+            <br><span class="muted">${esc(t.counterparty)}</span>
+           `:''}
+          </td>
+
+          <td class="mono ${inn?'in':'out'}">
+           ${inn?'+':'−'}${inr.format(t.amount)}
+          </td>
+
+          <td class="mono">
+           ${inr.format(t.balanceAfter)}
+          </td>
+
+         </tr>
+        `;
+
+       }).join('')}
+      </tbody>
+
+     </table>
+    </div>
+
+   `:`
+    <div class="empty">
+     <h3>No transactions yet</h3>
+     <p>Make your first deposit to get started.</p>
+    </div>
+   `}
+
+  </main>
+
+  <footer class="footer">
+   DSP Bank · Digital Banking Platform · Built with Java and Spring Boot
+  </footer>
+
+ `;
+
+ $('#lo').onclick=()=>logout();
+
+ const acts={
+
+  deposit:()=>ask('Deposit money',[{
+   name:'amount',
+   label:'Amount (₹)',
+   type:'number'
+  }],'Deposit').then(v=>
+   v&&api('/account/deposit','POST',{
+    amount:Number(v.amount)
+   }).then(()=>'Money deposited successfully')
+  ),
+
+  withdraw:()=>ask('Withdraw money',[{
+   name:'amount',
+   label:'Amount (₹)',
+   type:'number'
+  }],'Withdraw').then(v=>
+   v&&api('/account/withdraw','POST',{
+    amount:Number(v.amount)
+   }).then(()=>'Withdrawal successful')
+  ),
+
+  transfer:()=>ask('Transfer money',[
+   {
+    name:'to',
+    label:'Receiver account number'
+   },
+   {
+    name:'amount',
+    label:'Amount (₹)',
+    type:'number'
+   }
+  ],'Send money').then(v=>
+   v&&api('/account/transfer','POST',{
+    toAccount:Number(v.to),
+    amount:Number(v.amount)
+   }).then(()=>'Transfer successful')
+  ),
+
+  pin:()=>ask('Change PIN',[
+   {
+    name:'o',
+    label:'Current PIN',
+    type:'password',
+    pin:1
+   },
+   {
+    name:'n',
+    label:'New 4-digit PIN',
+    type:'password',
+    pin:1
+   }
+  ],'Change PIN').then(v=>
+   v&&api('/account/pin','PUT',{
+    oldPin:v.o,
+    newPin:v.n
+   }).then(()=>'PIN changed successfully')
+  )
+
+ };
+
+ document.querySelectorAll('[data-a]').forEach(b=>{
+
+  b.onclick=()=>run(async()=>{
+
+   const message=await acts[b.dataset.a]();
+
+   if(message){
+    toast(message);
+    await customerView();
+   }
+
+  });
+
+ });
+
 }
 
-/* ---------- admin ---------- */
+/* ADMIN DASHBOARD */
+
 async function adminView(){
-  const [st,list]=await Promise.all([api('/admin/stats'),api('/admin/accounts')]);
-  $('#app').innerHTML=`<header class="top"><span class="logo">DSP Bank · Admin</span><button class="btn ghost sm" id="lo">Log out</button></header>
-  <main><div class="stats"><div class="stat"><span class="muted">Customers</span><b>${st.totalCustomers}</b></div><div class="stat"><span class="muted">Total deposits</span><b class="mono">${inr.format(st.totalBalance)}</b></div><div class="stat"><span class="muted">Blocked accounts</span><b>${st.blockedAccounts}</b></div><div class="stat"><span class="muted">Transactions</span><b>${st.totalTransactions}</b></div></div>
-  <h2>Accounts</h2><input id="q" placeholder="Search by name or account number" style="max-width:340px;margin-bottom:.8rem">
-  <div class="wrap"><table class="table"><tr><th>Account</th><th>Holder</th><th>Balance</th><th>Status</th><th>Actions</th></tr><tbody id="rows"></tbody></table></div></main>`;
-  $('#lo').onclick=()=>logout();
-  const draw=f=>{$('#rows').innerHTML=list.filter(a=>!f||(a.name+a.accountNumber).toLowerCase().includes(f)).map(a=>`<tr><td class="mono">${a.accountNumber}</td><td>${esc(a.name)}</td><td class="mono">${inr.format(a.balance)}</td><td><span class="pill ${a.status==='ACTIVE'?'ok':'bad'}">${a.status==='ACTIVE'?'Active':'Blocked'}</span></td>
-   <td><div class="row-actions"><button class="btn ghost sm" data-e="${a.accountNumber}">Edit</button><button class="btn ghost sm" data-s="${a.accountNumber}" data-st="${a.status}">${a.status==='ACTIVE'?'Block':'Unblock'}</button><button class="btn ghost sm" data-p="${a.accountNumber}">Reset PIN</button><button class="btn danger sm" data-d="${a.accountNumber}">Delete</button></div></td></tr>`).join('')||'<tr><td colspan="5" class="muted">No accounts match.</td></tr>'};
-  draw('');$('#q').oninput=e=>draw(e.target.value.toLowerCase());
-  $('#rows').onclick=e=>{const b=e.target.closest('button');if(!b)return;run(async()=>{let done;
-    if(b.dataset.e){const a=list.find(x=>x.accountNumber==b.dataset.e),v=await ask('Edit account',[{name:'name',label:'Holder name',value:a.name},{name:'pin',label:'New PIN (leave blank to keep)',type:'password',pin:1,req:false}],'Save');if(v){await api('/admin/accounts/'+a.accountNumber,'PUT',{name:v.name,pin:v.pin||null});done='Account updated'}}
-    else if(b.dataset.s){await api(`/admin/accounts/${b.dataset.s}/${b.dataset.st==='ACTIVE'?'block':'unblock'}`,'POST');done=b.dataset.st==='ACTIVE'?'Account blocked':'Account unblocked'}
-    else if(b.dataset.p){const v=await ask('Reset PIN',[{name:'n',label:'New 4-digit PIN',type:'password',pin:1}],'Reset PIN');if(v){await api(`/admin/accounts/${b.dataset.p}/reset-pin`,'POST',{newPin:v.n});done='PIN reset'}}
-    else if(b.dataset.d){if(await confirmBox('Delete account '+b.dataset.d+' and all its transactions? This cannot be undone.','Delete account')){await api('/admin/accounts/'+b.dataset.d,'DELETE');done='Account deleted'}}
-    if(done){toast(done);adminView()}})};
+
+ const [st,list]=await Promise.all([
+  api('/admin/stats'),
+  api('/admin/accounts')
+ ]);
+
+ $('#app').innerHTML=`
+
+  <header class="top">
+   <span class="logo">DSP BANK · ADMIN</span>
+   <button class="btn ghost sm" id="lo">Log out</button>
+  </header>
+
+  <main>
+
+   <h1 style="margin-bottom:1.5rem">Admin dashboard</h1>
+
+   <div class="stats">
+
+    <div class="stat">
+     <span class="muted">Customers</span>
+     <b>${st.totalCustomers}</b>
+    </div>
+
+    <div class="stat">
+     <span class="muted">Total deposits</span>
+     <b class="mono">${inr.format(st.totalBalance)}</b>
+    </div>
+
+    <div class="stat">
+     <span class="muted">Blocked accounts</span>
+     <b>${st.blockedAccounts}</b>
+    </div>
+
+    <div class="stat">
+     <span class="muted">Transactions</span>
+     <b>${st.totalTransactions}</b>
+    </div>
+
+   </div>
+
+   <h2 class="section-title">Customer accounts</h2>
+
+   <input id="q"
+    placeholder="Search by name or account number"
+    style="max-width:380px;margin-bottom:1rem">
+
+   <div class="wrap">
+    <table class="table">
+
+     <thead>
+      <tr>
+       <th>Account</th>
+       <th>Holder</th>
+       <th>Balance</th>
+       <th>Status</th>
+       <th>Actions</th>
+      </tr>
+     </thead>
+
+     <tbody id="rows"></tbody>
+
+    </table>
+   </div>
+
+  </main>
+ `;
+
+ $('#lo').onclick=()=>logout();
+
+ const draw=f=>{
+
+  $('#rows').innerHTML=list.filter(a=>
+   !f||(a.name+a.accountNumber).toLowerCase().includes(f)
+  ).map(a=>`
+
+   <tr>
+
+    <td class="mono">${esc(a.accountNumber)}</td>
+
+    <td>${esc(a.name)}</td>
+
+    <td class="mono">${inr.format(a.balance)}</td>
+
+    <td>
+     <span class="pill ${a.status==='ACTIVE'?'ok':'bad'}">
+      ${a.status==='ACTIVE'?'Active':'Blocked'}
+     </span>
+    </td>
+
+    <td>
+     <div class="row-actions">
+
+      <button class="btn ghost sm" data-e="${a.accountNumber}">
+       Edit
+      </button>
+
+      <button class="btn ghost sm"
+       data-s="${a.accountNumber}"
+       data-st="${a.status}">
+       ${a.status==='ACTIVE'?'Block':'Unblock'}
+      </button>
+
+      <button class="btn ghost sm" data-p="${a.accountNumber}">
+       Reset PIN
+      </button>
+
+      <button class="btn danger sm" data-d="${a.accountNumber}">
+       Delete
+      </button>
+
+     </div>
+    </td>
+
+   </tr>
+
+  `).join('')||`
+   <tr>
+    <td colspan="5" class="muted">No accounts match.</td>
+   </tr>
+  `;
+
+ };
+
+ draw('');
+
+ $('#q').oninput=e=>draw(e.target.value.toLowerCase());
+
+ $('#rows').onclick=e=>{
+
+  const b=e.target.closest('button');
+  if(!b)return;
+
+  run(async()=>{
+
+   let done;
+
+   if(b.dataset.e){
+
+    const a=list.find(x=>x.accountNumber==b.dataset.e);
+
+    const v=await ask('Edit account',[
+     {
+      name:'name',
+      label:'Holder name',
+      value:a.name
+     },
+     {
+      name:'pin',
+      label:'New PIN (leave blank to keep)',
+      type:'password',
+      pin:1,
+      req:false
+     }
+    ],'Save');
+
+    if(v){
+     await api('/admin/accounts/'+a.accountNumber,'PUT',{
+      name:v.name,
+      pin:v.pin||null
+     });
+
+     done='Account updated';
+    }
+
+   }
+
+   else if(b.dataset.s){
+
+    await api(
+     `/admin/accounts/${b.dataset.s}/${b.dataset.st==='ACTIVE'?'block':'unblock'}`,
+     'POST'
+    );
+
+    done=b.dataset.st==='ACTIVE'
+     ?'Account blocked'
+     :'Account unblocked';
+
+   }
+
+   else if(b.dataset.p){
+
+    const v=await ask('Reset PIN',[{
+     name:'n',
+     label:'New 4-digit PIN',
+     type:'password',
+     pin:1
+    }],'Reset PIN');
+
+    if(v){
+     await api(`/admin/accounts/${b.dataset.p}/reset-pin`,'POST',{
+      newPin:v.n
+     });
+
+     done='PIN reset';
+    }
+
+   }
+
+   else if(b.dataset.d){
+
+    if(await confirmBox(
+     'Delete account '+b.dataset.d+
+     ' and all its transactions? This cannot be undone.',
+     'Delete account'
+    )){
+
+     await api('/admin/accounts/'+b.dataset.d,'DELETE');
+     done='Account deleted';
+
+    }
+
+   }
+
+   if(done){
+    toast(done);
+    adminView();
+   }
+
+  });
+
+ };
+
 }
+
+/* ROUTING */
 
 function route(){
-  if(!session)return authView();
-  run(()=>session.role==='ADMIN'?adminView():customerView()).then(()=>{if(!session)authView()});
+
+ if(!session){
+  authView();
+  return;
+ }
+
+ run(()=>
+  session.role==='ADMIN'
+   ?adminView()
+   :customerView()
+ ).then(()=>{
+  if(!session)authView();
+ });
+
 }
+
 route();
+
 </script>
 </body>
 </html>
